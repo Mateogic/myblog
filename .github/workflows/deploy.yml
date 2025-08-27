@@ -40,7 +40,12 @@ jobs:
       - name: Build static files
         run: pnpm docs:build
 
-      # 配置 SSH (使用私钥 secret 和 passphrase)
+      - name: Debug SSH
+        run: |
+          echo "Host: ${{ secrets.BLOG_SERVER_HOST }}"
+          echo "User: ${{ secrets.BLOG_SERVER_USER }}"
+          echo "Key: ${{ secrets.BLOG_SERVER_SSH_KEY }}"
+
       - name: SSH key passphrase
         uses: appleboy/ssh-action@v1
         with:
