@@ -41,8 +41,14 @@ jobs:
         run: pnpm docs:build
 
       - name: Debug Secrets
-        run: echo "Secret length: ${#secrets.BLOG_SSH_PRIVATE_KEY}"
-        
+        run: |
+          if [ -z "${{ secrets.BLOG_SSH_PRIVATE_KEY }}" ]; then
+            echo "BLOG_SSH_PRIVATE_KEY is empty or not set"
+            exit 1
+          else
+            echo "BLOG_SSH_PRIVATE_KEY is set"
+          fi
+          
       # 配置 SSH (使用私钥 secret)
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.9.0
