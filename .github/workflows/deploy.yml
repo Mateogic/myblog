@@ -42,19 +42,19 @@ jobs:
 
       - name: Debug Secrets
         run: |
-          if [ -z "${{ secrets.BLOG_SSH_PRIVATE_KEY }}" ]; then
-            echo "BLOG_SSH_PRIVATE_KEY is empty or not set"
+          if [ -z "${{ secrets.BLOG_SERVER_SSH_KEY }}" ]; then
+            echo "BLOG_SERVER_SSH_KEY is empty or not set"
             exit 1
           else
-            echo "BLOG_SSH_PRIVATE_KEY is set"
+            echo "BLOG_SERVER_SSH_KEY is set"
           fi
-          
+
       # 配置 SSH (使用私钥 secret)
       - name: Setup SSH
         uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: |
-            ${{ secrets.BLOG_SSH_PRIVATE_KEY }}
+            ${{ secrets.BLOG_SERVER_SSH_KEY }}
 
       - name: Add known_hosts
         run: |
