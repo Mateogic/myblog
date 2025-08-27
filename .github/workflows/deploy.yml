@@ -65,4 +65,4 @@ jobs:
           BLOG_SERVER_USER: ${{ secrets.BLOG_SERVER_USER }}
           BLOG_SERVER_HOST: ${{ secrets.BLOG_SERVER_HOST }}
         run: |
-          ssh $BLOG_SERVER_USER@$BLOG_SERVER_HOST "docker restart blog-nginx-frontend"
+          ssh $BLOG_SERVER_USER@$BLOG_SERVER_HOST "docker restart blog"
