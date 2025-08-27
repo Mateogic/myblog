@@ -40,22 +40,29 @@ jobs:
       - name: Build static files
         run: pnpm docs:build
 
-      - name: Debug SSH
-        run: |
-          echo "Host: ${{ secrets.BLOG_SERVER_HOST }}"
-          echo "User: ${{ secrets.BLOG_SERVER_USER }}"
-          echo "Key: ${{ secrets.BLOG_SERVER_SSH_KEY }}"
-
-      - name: SSH key passphrase
-        uses: appleboy/ssh-action@v1
+      # 配置 SSH (使用私钥 secret)
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
         with:
-          host: ${{ secrets.BLOG_SERVER_HOST }}
-          username: ${{ secrets.BLOG_SERVER_USER }}
-          key: ${{ secrets.BLOG_SERVER_SSH_KEY }}
-          port: 22
-          passphrase: ${{ secrets.BLOG_SERVER_SSH_KEY_PASSPHRASE }}
-          script: |
-            mkdir -p ~/.ssh
-            ssh-keyscan -H ${{ secrets.BLOG_SERVER_HOST }} >> ~/.ssh/known_hosts
-            rsync -avz --delete docs/.vitepress/dist/ ${{ secrets.BLOG_SERVER_USER }}@${{ secrets.BLOG_SERVER_HOST }}:${{ secrets.BLOG_PATH }}
-            ssh ${{ secrets.BLOG_SERVER_USER }}@${{ secrets.BLOG_SERVER_HOST }} "docker restart blog"
+          ssh-private-key: |
+            ${{ secrets.BLOG_SERVER_SSH_KEY }}
+
+      - name: Add known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.BLOG_SERVER_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy (rsync)
+        env:
+          BLOG_SERVER_USER: ${{ secrets.BLOG_SERVER_USER }}
+          BLOG_SERVER_HOST: ${{ secrets.BLOG_SERVER_HOST }}
+          BLOG_PATH: ${{ secrets.BLOG_PATH }}
+        run: |
+          rsync -avz --delete docs/.vitepress/dist/ $BLOG_SERVER_USER@$BLOG_SERVER_HOST:$BLOG_PATH/
+
+      - name: Restart Nginx container
+        env:
+          BLOG_SERVER_USER: ${{ secrets.BLOG_SERVER_USER }}
+          BLOG_SERVER_HOST: ${{ secrets.BLOG_SERVER_HOST }}
+        run: |
+          ssh $BLOG_SERVER_USER@$BLOG_SERVER_HOST "docker restart blog"
