@@ -31,11 +31,6 @@ export default {
 				const newUrl = to.replace(encodeURI('/博客/'), '/posts/')
 				window.location.href = newUrl
 			}
-
-			if (to.startsWith(encodeURI('/笔记/'))) {
-				const newUrl = to.replace(encodeURI('/笔记/'), '/notes/')
-				window.location.href = newUrl
-			}
 		}
 	},
 };
