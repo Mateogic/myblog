@@ -45,23 +45,23 @@ export default defineConfig({
     outline: [2, 4],
 
     // 本地搜索
-    search: {
-      provider: "local",
-      options: {
-        locales: { ...zhSearch }
-      }
-    },
-
-    // // algolia搜索，需要申请，如不需要，删除下面的配置，可使用本地搜索
     // search: {
-    //   provider: 'algolia',
+    //   provider: "local",
     //   options: {
-    //     appId: 'LGWG5THRKY',
-    //     apiKey: '8fb5c1dc72bc92580f7fa1471ad2b814',
-    //     indexName: 'Mateogic',
     //     locales: { ...zhSearch }
     //   }
     // },
+
+    // // algolia搜索，需要申请，如不需要，删除下面的配置，可使用本地搜索
+    search: {
+      provider: 'algolia',
+      options: {
+        appId: 'I902L5MI8T',
+        apiKey: 'b68c4dcaf9015eeaccbed1bd06503ffc',
+        indexName: 'crawler',
+        locales: { ...zhSearch }
+      }
+    },
 
     externalLinkIcon: true,
   },
