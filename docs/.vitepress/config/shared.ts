@@ -15,7 +15,7 @@ export default defineConfig({
   cleanUrls: true,
   ignoreDeadLinks: true,
   sitemap: {
-    hostname: 'https://justin3go.com'
+    hostname: 'https://blog.mateogic.cn'
   },
   head: [
     ["script", { async: "", src: "https://www.googletagmanager.com/gtag/js?id=G-MB7XVBG1TQ" }],
@@ -32,7 +32,7 @@ export default defineConfig({
       "link",
       {
         rel: "icon",
-        href: "https://oss.justin3go.com/justin3goAvatar.ico",
+        href: "https://oss.mateogic.cn/blog/1756397179300-headshot.jpeg",
       },
     ],
   ],
@@ -63,7 +63,7 @@ export default defineConfig({
       options: {
         appId: 'LGWG5THRKY',
         apiKey: '8fb5c1dc72bc92580f7fa1471ad2b814',
-        indexName: 'justin3go',
+        indexName: 'Mateogic',
         locales: { ...zhSearch }
       }
     },

@@ -7,8 +7,8 @@ const firstNoteItemLink = sideBarConfig['/notes/'][0].items[0].link
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Justin3go",
-  description: "坚持深耕技术领域的 T 型前端程序员, 关注独立开发与 AI，喜欢 Vuejs、Nestjs, 还会点 Python、搜索引擎、NLP、Web3、后端",
+  title: "Mateogic",
+  description: "一名希望成为开发者的学生，喜欢健身、摄影等。",
   lang: "zh-Hans", //语言
 
   themeConfig: {
@@ -18,13 +18,12 @@ export default defineConfig({
 			{ text: "归档", link: "/archive", activeMatch: '/archive' },
 			{ text: "笔记", link: firstNoteItemLink, activeMatch: '/notes/' },
 			{ text: "关于", link: "/about", activeMatch: '/about' },
-			{ text: "赞助", link: "/support-me", activeMatch: '/support-me' },
     ],
     footer: {
-      message: 'Copyright © 2022-present <a href="https://justin3go.com/about">Justin3go</a>.' +
-      '&nbsp;&nbsp;&nbsp;✧ <a href="https://justin3go.com/about#%E7%8E%A9%E5%85%B7-%E4%BD%9C%E5%93%81">个人项目</a>' + 
-      '&nbsp;&nbsp;&nbsp;✧ <a href="https://justin3go.com/about#%E8%81%94%E7%B3%BB%E6%88%91">联系方式</a>' + 
-      '&nbsp;&nbsp;&nbsp;✧ <a href="https://justin3go.com/friends">友情链接</a>',
+      message: 'Copyright © 2025-present <a href="https://blog.mateogic.cn/about">Mateogic</a>.' +
+      '&nbsp;&nbsp;&nbsp;✧ <a href="https://blog.mateogic.cn/about#%E7%8E%A9%E5%85%B7-%E4%BD%9C%E5%93%81">个人项目</a>' + 
+      '&nbsp;&nbsp;&nbsp;✧ <a href="https://blog.mateogic.cn/about#%E8%81%94%E7%B3%BB%E6%88%91">联系方式</a>' + 
+      '&nbsp;&nbsp;&nbsp;✧ <a href="https://blog.mateogic.cn/friends">友情链接</a>',
       
       // copyright: 'Copyright © 2022-present <a href="https://justin3go.com/about">Justin3go</a>.',
     },
@@ -38,8 +37,7 @@ export default defineConfig({
     sidebar: sideBarConfig,
 
     socialLinks: [
-      { icon: 'x', link: 'https://x.com/Justin1024go' },
-      { icon: 'github', link: 'https://github.com/Justin3go/justin3go.com' },
+      { icon: 'github', link: 'https://github.com/mateogic' },
       {
         icon: {
           svg: '<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><title>RSS</title><path d="M108.56,342.78a60.34,60.34,0,1,0,60.56,60.44A60.63,60.63,0,0,0,108.56,342.78Z"/><path d="M48,186.67v86.55c52,0,101.94,15.39,138.67,52.11s52,86.56,52,138.67h86.66C325.33,312.44,199.67,186.67,48,186.67Z"/><path d="M48,48v86.56c185.25,0,329.22,144.08,329.22,329.44H464C464,234.66,277.67,48,48,48Z"/></svg>',
@@ -49,7 +47,7 @@ export default defineConfig({
     ],
 
     editLink: {
-      pattern: "https://github.com/Justin3go/justin3go.com/edit/master/docs/:path",
+      pattern: "https://github.com/mateogic/myblog/edit/master/docs/:path",
       text: "在 GitHub 上编辑此页",
     },
     returnToTopLabel: "回到顶部",

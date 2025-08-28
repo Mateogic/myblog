@@ -3,18 +3,18 @@ import { writeFileSync } from "node:fs";
 import { Feed } from "feed";
 import { createContentLoader, type SiteConfig } from "vitepress";
 
-const hostname = "https://justin3go.com";
+const hostname = "https://blog.mateogic.cn";
 
 export async function createRssFileZH(config: SiteConfig) {
   const feed = new Feed({
-    title: 'Justin3go',
-    description: '坚持深耕技术领域的 T 型前端程序员, 关注独立开发，喜欢 Vuejs、Nestjs, 还会点 Python、搜索引擎、NLP、Web3、后端',
+    title: 'Mateogic',
+    description: '一名希望成为开发者的学生，喜欢健身、摄影等。',
     id: hostname,
     link: hostname,
     language: "zh-Hans",
-    image: "https://oss.justin3go.com/justin3goAvatar.jpg",
-    favicon: `https://oss.justin3go.com/justin3goAvatar.ico`,
-    copyright: "Copyright© 2021-present Justin3go",
+    image: "https://oss.mateogic.cn/blog/1756397179300-headshot.jpeg",
+    favicon: `https://oss.mateogic.cn/blog/1756397179300-headshot.jpeg`,
+    copyright: "Copyright© 2025-present Mateogic",
   });
 
   const posts = await createContentLoader("posts/**/*.md", {
@@ -38,9 +38,9 @@ export async function createRssFileZH(config: SiteConfig) {
       content: html,
       author: [
         {
-          name: "Justin3go",
-          email: "just@justin3go.com",
-          link: "https://justin3go.com",
+          name: "Mateogic",
+          email: "ljc_2318516761@163.com",
+          link: "https://blog.mateogic.cn",
         },
       ],
       date: frontmatter.date,
@@ -52,14 +52,14 @@ export async function createRssFileZH(config: SiteConfig) {
 
 export async function createRssFileEN(config: SiteConfig) {
   const feed = new Feed({
-    title: "Justin3go",
-    description: "A T-shaped front-end developer who is committed to deepening expertise in the technical field, focuses on independent development, enjoys working with Vue.js and Nest.js, and has some knowledge of Python, search engines, NLP, Web3, and back-end development.",
+    title: "Mateogic",
+    description: "A student who wants to become a developer and enjoys fitness, photography, etc.",
     id: hostname,
     link: hostname,
     language: "en-US",
-    image: "https://oss.justin3go.com/justin3goAvatar.jpg",
-    favicon: `https://oss.justin3go.com/justin3goAvatar.ico`,
-    copyright: "Copyright© 2021-present Justin3go",
+    image: "https://oss.mateogic.cn/blog/1756397179300-headshot.jpeg",
+    favicon: `https://oss.mateogic.cn/blog/1756397179300-headshot.jpeg`,
+    copyright: "Copyright© 2025-present Mateogic",
   });
 
   const posts = await createContentLoader("en/posts/**/*.md", {
@@ -83,9 +83,9 @@ export async function createRssFileEN(config: SiteConfig) {
       content: html,
       author: [
         {
-          name: "Justin3go",
-          email: "just@justin3go.com",
-          link: "https://justin3go.com",
+          name: "Mateogic",
+          email: "ljc_2318516761@163.com",
+          link: "https://blog.mateogic.cn",
         },
       ],
       date: frontmatter.date,
