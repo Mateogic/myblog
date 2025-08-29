@@ -42,6 +42,11 @@ jobs:
           ssh-private-key: |
             ${{ secrets.BLOG_SERVER_SSH_KEY }}
 
+      - name: Add known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.BLOG_SERVER_HOST }} >> ~/.ssh/known_hosts
+
       - name: Deploy (rsync)
         env:
           BLOG_SERVER_USER: ${{ secrets.BLOG_SERVER_USER }}
