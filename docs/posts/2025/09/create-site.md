@@ -13,25 +13,33 @@ tags:
 > ✨文章摘要（AI生成）
 
 <!-- DESC SEP -->
+
 本文展示了使用 LightHouse 测试博客首屏和个人主页的报告，记录了如何创建、部署本站的过程及配置。
+
 <!-- DESC SEP -->
 
 之前折腾过一些博客和个人主页，但受限于种种因素(没有发现喜欢的主题、没有很多想写的内容)，总是草草作罢。希望这次可以多记录一些内容，可能包括但不限于技术文档、个人想法(~~正经人谁写日记啊~~)、项目展示、摄影~~作品~~。总之，本站是一个功能相对完整的静态博客，改造自[justin3go](https://justin3go.com/)。本站去除了笔记、赞助、其它语言等功能，更改了深色主题的配色，增加了我的[个人主页](https://mateogic.cn)，并根据[LightHouse插件](https://developer.chrome.com/docs/lighthouse?hl=zh-cn)测试报告尝试做了些许优化，现将测试报告及部署配置记录如下。
 
 ## LightHouse测试报告
+
 ### 博客首屏
+
 ![博客首屏测试报告](https://oss.mateogic.cn/blog/1757078765548-blog.mateogic.cn.png)
 
 ### 个人主页
+
 ![个人主页测试报告](https://oss.mateogic.cn/blog/1757078757251-mateogic.cn.png)
 
 ## 部署配置
+
 本站使用 `pnpm` 构建静态页面，并通过 GitHub Actions 将编译产物自动发布到服务器上的 NginX 容器。整体流程分为：本地/CI 构建 → 产物上传到服务器 `html/` 目录 → `docker-compose` 管理的 Nginx 容器挂载该目录直接提供静态文件。
 
 ### 目录与构建说明
+
 - 博客主体：基于 VitePress，执行 `pnpm run docs:build` 后输出到 `docs/.vitepress/dist`。
 - 个人主页：放在仓库 `homepage/` 目录，执行 `pnpm run homepage:rev`（`scripts/rev-homepage.mjs`）对静态资源（如 `css/js/font`）加入指纹（适配强缓存 & `immutable`）。
 - 服务端主要目录结构：
+
 ```
 ~/blog/
   ├── docker-compose.yml
@@ -46,13 +54,17 @@ tags:
 ```
 
 - 容器内主要目录结构：
+
 ```
 /usr/share/nginx/html/
   ├── blog/       # 对应 VitePress 构建产物
   └── homepage/   # 个人主页静态文件
 ```
+
 ### GitHub Actions 配置文件
-该文件放置于`.github/workflows/deploy.yml`，需自行配置仓库的 Secret Variebles:
+
+该文件放置于 `.github/workflows/deploy.yml`，需自行配置仓库的 Secret Variebles:
+
 - BLOG_PATH
 - BLOG_SERVER_HOST
 - BLOG_SERVER_SSH_KEY
@@ -127,10 +139,13 @@ jobs:
         run: |
           ssh $BLOG_SERVER_USER@$BLOG_SERVER_HOST "docker restart blog"
 ```
+
 说明：由于只是静态文件更新，且使用只读挂载，通常无需重启容器（Nginx 直接读取新文件），可省略“重载容器”步骤。
 
 ### docker-compose 配置文件
+
 服务器端 `docker-compose.yml`：
+
 ```yaml
 version: '3.8'
 
@@ -148,9 +163,11 @@ services:
       - ./html:/usr/share/nginx/html:ro
     restart: always
 ```
+
 这里把容器 80 / 81 端口分离：`80` 提供博客，`81` 提供主页。宿主层使用 5174/5175 是为了避免与主机上可能存在的其他 80/443 服务冲突，或留待后续接入统一反向代理（如 Nginx Proxy Manager）。
 
 ### Nginx 配置文件
+
 ```conf
 # nginx.conf
 user nginx;
@@ -262,24 +279,30 @@ server {
 }
 ```
 
-注意`nginx/conf.d/default.conf` 中两个 server：
+注意 `nginx/conf.d/default.conf` 中两个 server：
+
 1. `listen 81; server_name mateogic.cn; root /usr/share/nginx/html/homepage;`
 2. `listen 80; server_name blog.mateogic.cn; root /usr/share/nginx/html/blog;`
 
 共同特性：
+
 - `try_files $uri $uri/ $uri.html /index.html;` 兼容前端路由与静态直出。
 - 加了一组常见安全头（可继续拓展：`Strict-Transport-Security` 需在全站 HTTPS 后加）。
 - 对 `js|css|font|img` 等资源设置 `Cache-Control: public, max-age=31536000, immutable`，配合指纹文件保证更新安全。
 
 全局 `nginx.conf`：
+
 - 开启 `gzip on` + `gzip_static on`，后者会在存在同名 `.gz` 文件时直接回源该文件（配合 `vite-plugin-compression`）。
 - 合理的 `gzip_types` 与压缩级别 `6`（兼顾 CPU 与体积）。
 
 ### 部署/更新步骤（概览）
+
 1. 推送代码到 `main` 分支。
 2. GitHub Actions 自动执行：安装依赖 → 构建博客 → 指纹化主页 → 通过 SCP 同步到服务器 `/root/blog/html`。
 3. 容器无需重启即可生效（静态文件直接被新的覆盖）。
 4. 浏览器端长缓存资源因文件名指纹变化自动获取新版本。
 
 ## 其它
+
 - 评论配置可通过 https://giscus.app/zh-CN 获取配置填充到 `Comment.vue`组件。
+- 之后可能会添加画廊等功能。
