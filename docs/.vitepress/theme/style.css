@@ -1,0 +1,254 @@
+/** 代码字体 */
+@font-face {
+	font-family: "FiraCode";
+	src: url("/assets/fonts/FiraCode-VF.woff2");
+	font-display: swap;
+}
+/** 正文字体 */
+/** 2. 使用 http://font.ssjjss.com/font-subset/ 对字体进行子集化处理，保留常用汉字和字母 */
+@font-face {
+	font-family: "SourceHanSerifCN";
+	src: local("SourceHanSerifCN"), url("/assets/fonts/SourceHanSerifCN-VF.otf");
+	font-display: swap;
+}
+/** logo 字体 */
+@font-face {
+	font-family: "Yellowtail";
+	src: local("Yellowtail"), url("/assets/fonts/Yellowtail.ttf");
+	font-display: swap;
+}
+/** footer字体 */
+@font-face {
+	font-family: "Segoe";
+	src: local("Segoe"), url("/assets/fonts/Segoe.ttf");
+	font-display: swap;
+}
+/* 参考 https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css */
+
+/**
+ * Colors Base
+ *
+ * These are the pure base color presets. Most of the time, you should not be
+ * using these colors directly in the theme but rather use "Colors Theme"
+ * instead because those are "Theme (light or dark)" dependant.
+ * -------------------------------------------------------------------------- */
+
+:root {
+	--vp-c-blue-1: #2949A4;
+	--vp-c-blue-2: #0749ff;
+	--vp-c-blue-3: #7494ec;
+	--vp-c-blue-soft: rgba(110, 156, 190, 0.14);
+
+	--vp-c-yellow-1: #aa9100;
+	--vp-c-yellow-2: #d5b811;
+	--vp-c-yellow-3: #ecce23;
+	--vp-c-yellow-soft: rgba(186, 186, 186, 0.14);
+}
+
+/**
+ * Colors Theme
+ * -------------------------------------------------------------------------- */
+
+:root {
+	--vp-c-brand-1: var(--vp-c-blue-1);
+	--vp-c-brand-2: var(--vp-c-blue-2);
+	--vp-c-brand-3: var(--vp-c-blue-3);
+	--vp-c-brand-soft: var(--vp-c-blue-soft);
+}
+
+/* Dark theme overrides aligned with homepage palette */
+.dark {
+	--vp-c-brand-1: #3B82F6; /* primary */
+	--vp-c-brand-2: #2563eb; /* hover / accent */
+	--vp-c-brand-3: #1d4ed8; /* darker */
+	--vp-c-brand-soft: rgba(59, 130, 246, 0.14);
+	
+	/* 深色背景颜色设置 */
+	--vp-c-bg: #101a2b; /* 修改深色主题背景为指定颜色 */
+	--vp-c-bg-alt: #1e293b; /* 侧边栏等替代背景 */
+	--vp-c-bg-soft: #1e293b; /* 软背景色 */
+}
+
+/**
+ * Typography
+ * -------------------------------------------------------------------------- */
+
+:root {
+	--vp-font-family-mono: "FiraCode";
+}
+
+:root {
+	--td-border-level-2-color: var(--vp-c-brand-soft) !important;
+	--td-brand-color: var(--vp-c-brand-1) !important;
+	--td-brand-color-light: var(--vp-c-brand-soft) !important;
+	--td-brand-color-hover: var(--vp-c-brand-1) !important;
+	--td-brand-color-active: var(--vp-c-brand-2) !important;
+}
+
+/**
+ * 特殊配置
+ * -------------------------------------------------------------------------- */
+
+/* 宋体字体类 */
+.source-han-serif {
+	font-family: "SourceHanSerifCN";
+}
+
+/* logo 字体设置 */
+.VPNavBarTitle .title {
+	font-family: "Yellowtail";
+	font-size: 24px !important;
+}
+
+/* 侧边栏标题隐藏单行文本溢出 */
+.VPSidebar .items p {
+	display: inline-block;
+	width: calc(var(--vp-sidebar-width) - 100px);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/** 总体类 */
+::selection {
+	background: var(--vp-c-brand-1);
+	color: var(--vp-c-bg);
+}
+
+::-moz-selection {
+	background: var(--vp-c-brand-1);
+	color: var(--vp-c-bg);
+}
+
+::-webkit-selection {
+	background: var(--vp-c-brand-1);
+	color: var(--vp-c-bg);
+}
+
+/** 链接样式 */
+.VPDoc a {
+	text-decoration: underline !important; /* 始终显示下划线，提高可访问性 */
+	text-decoration-thickness: 1px !important;
+	text-underline-offset: 2px !important;
+}
+
+.VPDoc a:hover {
+	text-decoration-thickness: 2px !important; /* 悬浮时下划线加粗 */
+}
+
+.VPFooter a {
+	text-decoration: underline !important; /* 始终显示下划线，提高可访问性 */
+	text-decoration-thickness: 1px !important;
+	text-underline-offset: 2px !important;
+	color: #2563eb !important;
+	transition: all 0.2s ease;
+}
+
+.VPFooter a:hover {
+	text-decoration-thickness: 2px !important; /* 悬浮时下划线加粗 */
+	text-decoration-color: #1d4ed8 !important;
+	color: #1d4ed8 !important;
+}
+
+/** VPFooter文字颜色统一 - 与homepage保持一致，字体设置为Segoe UI */
+.VPFooter {
+	color: #6b7280 !important;
+	font-weight: 550 !important; /* 设置为medium粗细 */
+	font-family: 'Segoe' !important;
+	font-size: 0.9rem !important; /* 设置字体大小 */
+	padding: 1.2rem 0 !important; /* 缩小footer的纵向长度，与homepage保持一致 */
+}
+
+.VPFooter .message,
+.VPFooter .copyright {
+	color: #6b7280 !important;
+	font-weight: 550 !important; /* 设置为medium粗细 */
+	font-family: 'Segoe' !important;
+	font-size: 0.9rem !important; /* 设置字体大小 */
+	margin-bottom: 0.5rem !important; /* 增加两行文字之间的间距 */
+}
+
+/** 暗色模式下的footer颜色 */
+.dark .VPFooter,
+.dark .VPFooter .message,
+.dark .VPFooter .copyright {
+	color: #cbd5e1 !important;
+	font-weight: 550 !important; /* 设置为medium粗细 */
+	font-family: 'Segoe' !important;
+	font-size: 0.9rem !important; /* 设置字体大小 */
+}
+
+.VPDoc img {
+	border-radius: 4px;
+	cursor: zoom-in;
+}
+
+/* jupyter 输出代码不换行显示 */
+main > div > div > pre > code {
+	white-space: normal;
+}
+
+#app {
+	/* 取消移动端点击 div 默认高亮效果 */
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/** 磨砂玻璃效果设置 */
+.VPNavBar {
+	background-color: transparent !important;
+}
+.VPNav .content .content-body {
+	backdrop-filter: blur(36px);
+	background-color: linear-gradient(
+		to bottom,
+		rgba(var(--vp-nav-bg-color), 0.98),
+		rgba(var(--vp-nav-bg-color), 0.6)
+	) !important;
+}
+
+.VPLocalNav,
+.VPLocalNav .container {
+	backdrop-filter: blur(36px);
+	background-color: linear-gradient(
+		to bottom,
+		rgba(var(--vp-nav-bg-color), 0.6),
+		rgba(var(--vp-nav-bg-color), 0.4)
+	) !important;
+}
+
+.VPLocalNav,
+.has-aside .container {
+	backdrop-filter: none;
+	background-color: none !important;
+}
+
+/** i18n 选项不显示下拉图标 */
+.vpi-chevron-down,
+.text-icon {
+	display: none;
+}
+
+/* 为 logo 添加点击跳转功能 */
+.VPNavBarTitle .title {
+	cursor: pointer;
+	transition: color 0.2s ease;
+}
+
+.VPNavBarTitle .title:hover {
+	color: var(--vp-c-brand-1) !important;
+}
+
+/** 主题切换按钮样式 */
+.VPSwitchAppearance {
+	width: 22px !important;
+}
+
+.VPSwitchAppearance .check {
+	transform: none !important;
+}
+
+/** 滚动条 */
+* {
+	/* scrollbar-color: rgba(0, 0, 0, 0.12) transparent; */
+	scrollbar-width: thin;
+}

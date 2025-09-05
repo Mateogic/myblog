@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+# 主要页面路径
+Allow: /
+Allow: /about
+Allow: /archive
+Allow: /posts/
+
+# 不允许抓取的路径
+Disallow: /assets/
+Disallow: /*.js$
+Disallow: /*.css$
+Disallow: /.vitepress/
+Disallow: /node_modules/
+Disallow: /temp/
+Disallow: /cache/
+
+# 搜索引擎友好的抓取设置
+Crawl-delay: 1
+
+# 站点地图位置
+Sitemap: https://blog.mateogic.cn/sitemap.xml
